@@ -1,25 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+import "./App.css";
+
+const App = () => {
+  const [mass, setMass] = useState();
+  const [height, setHeight] = useState();
+  const [result, setResult] = useState();
+
+  if (!result) {
+    return (
+      <div className="App">
+        <input
+          placeholder="Enter Body Mass (kg.)"
+          onChange={(e) => {
+            setMass(e.target.value);
+          }}
+        />
+        <input
+          placeholder="Enter Height (meter)"
+          onChange={(e) => {
+            setHeight(e.target.value);
+          }}
+        />
+        <button
+          onClick={(e) => {
+            if (mass && height) {
+              setResult((mass / (height * height)).toFixed(2));
+            }
+          }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+          Calculate
+        </button>
+      </div>
+    );
+  } else {
+    const category =
+      result > 30
+        ? "Obese"
+        : result > 25
+        ? "Overweight"
+        : result > 18.5
+        ? "Healthy Weight"
+        : "Underweight";
+    return (
+      <div className="App">
+        <h1>Body mass Index (BMI): {result} kg/m2</h1>
+        <h2>Category: {category}</h2>
+        <button
+          onClick={(e) => {
+            setResult();
+          }}
+        >
+          Back
+        </button>
+      </div>
+    );
+  }
+};
 
 export default App;
