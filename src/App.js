@@ -10,6 +10,7 @@ const App = () => {
   if (!result) {
     return (
       <div className="App">
+        <h1>BMI Calculator</h1>
         <input
           placeholder="Enter Body Mass (kg.)"
           onChange={(e) => {
